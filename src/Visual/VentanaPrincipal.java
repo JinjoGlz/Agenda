@@ -53,7 +53,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableTabla = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
 
         javax.swing.GroupLayout jDialog1Layout = new javax.swing.GroupLayout(jDialog1.getContentPane());
@@ -186,12 +185,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         jScrollPane2.setViewportView(jScrollPane1);
 
-        jButton1.setText("jButton1");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
         setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -200,9 +193,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1)
-                .addGap(421, 421, 421))
+                .addGap(500, 500, 500))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -217,11 +208,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jButton1)))
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -247,6 +234,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private void jButtonBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBorrarActionPerformed
       try{
         int index=jTableTabla.getSelectedRow();
+        if(index==-1){
+            throw new ArrayIndexOutOfBoundsException();
+        }
           if(index==0){
               contactos.borrarInicio();
           }else{
@@ -280,10 +270,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(null, "Seleccione un Contacto para modificar");
                 }
     }//GEN-LAST:event_jButtonModificarActionPerformed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
- actualizar();
-    }//GEN-LAST:event_jButton1ActionPerformed
      
     
     
@@ -293,22 +279,15 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             
         }
         Nodo<Contacto> aux= contactos.getInicio();
-       if(aux==null){
-           
-       }else{
-           if(aux.getLiga()==null){
-               Object datos[]={aux.getInfo().getNombre()};
-            System.out.println(datos[0]);
-            modelo.insertRow(modelo.getRowCount(), datos);
-           }else{
+       
         while(aux!=null){
             Object datos[]={aux.getInfo().getNombre()};
             System.out.println(datos[0]);
             modelo.insertRow(modelo.getRowCount(), datos);
             aux=aux.getLiga();
         }
-           }
-       }
+           
+       
     }
     
     
@@ -348,7 +327,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButtonBorrar;
     private javax.swing.JButton jButtonModificar;
     private javax.swing.JButton jButtonNuevo;

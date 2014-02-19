@@ -32,6 +32,7 @@ public class Informacion extends javax.swing.JDialog {
         modeloCorreo=new DefaultTableModel(datos,cabecera);
         jTableCorreos.setModel(modeloCorreo);
         actualizarCorreos();
+        actualizarNumeros();
         jTextField1.setText(contacto.getInfo().getNombre());
         
     }
@@ -226,12 +227,16 @@ public class Informacion extends javax.swing.JDialog {
     }//GEN-LAST:event_jButtonNuevoCorreoActionPerformed
 
     private void jButtonBorrarNumeroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBorrarNumeroActionPerformed
-try{
+try{    
         int index=jTableNumeros.getSelectedRow();
+        if(index==-1){
+            throw new ArrayIndexOutOfBoundsException();
+        }
+        System.out.println("indice"+index);
           if(index==0){
               contacto.getInfo().getTelefonos().borrarInicio();
           }else{
-              if(index==modeloNumero.getRowCount()-1){
+              if(index==modeloNumero.getRowCount()){
                   contacto.getInfo().getTelefonos().borrarFinal();
               }else{
                   contacto.getInfo().getTelefonos().borrar(index);
@@ -247,10 +252,13 @@ try{
     private void jButtonBorrarCorreoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBorrarCorreoActionPerformed
         try{
         int index=jTableCorreos.getSelectedRow();
+        if(index==-1){
+            throw new ArrayIndexOutOfBoundsException();
+        }
           if(index==0){
               contacto.getInfo().getEmails().borrarInicio();
           }else{
-              if(index==modeloNumero.getRowCount()-1){
+              if(index==modeloCorreo.getRowCount()){
                   contacto.getInfo().getEmails().borrarFinal();
               }else{
                   contacto.getInfo().getEmails().borrar(index);
@@ -278,14 +286,14 @@ try{
             
         }
         Nodo<String> aux= contacto.getInfo().getEmails().getInicio();
-       if(aux==null){
-           
-       }else{
-        while(aux.getLiga()!=null){
+       
+        while(aux!=null){
             String datos[]={aux.getInfo()};
-            modeloCorreo.insertRow(modeloCorreo.getRowCount()+1, datos);
+            System.out.println(datos[0]);
+            modeloCorreo.insertRow(modeloCorreo.getRowCount(), datos);
+            aux=aux.getLiga();
         }
-       }
+       
     }
     
      private void actualizarNumeros(){
@@ -294,14 +302,13 @@ try{
             
         }
         Nodo<String> aux= contacto.getInfo().getTelefonos().getInicio();
-       if(aux==null){
-           
-       }else{
-        while(aux.getLiga()!=null){
+       
+        while(aux!=null){
             String datos[]={aux.getInfo()};
-            modeloCorreo.insertRow(modeloNumero.getRowCount()+1, datos);
+            modeloNumero.insertRow(modeloNumero.getRowCount(), datos);
+            aux=aux.getLiga();
         }
-       }
+       
     }
     /**
      * @param args the command line arguments
